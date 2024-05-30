@@ -3,62 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorijas Uzskaites Sistēma</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Homework Manager</title>
 </head>
 <body>
-    <div id="form1" class="form-container">
-        <div class="welcome-section">
-            <h1>Esi sveicināts KLUS</h1>
-            <p>Tavas laboratorijas uzskaites sistēma</p>
-        </div>
-        <div class="action-section">
-            <h2>Ko Tu vēlies darīt šodien?</h2>
-            <p>Piekļūsti savas skolas laboratorijai vai aplūko publiski pieejamo informāciju un datus par laboratoriju</p>
-            <button onclick="showForm('form2')">Pieslēgties</button>
-            <button onclick="showForm('form3')">Piekļūt publiskiem datiem</button>
-        </div>
-    </div>
-
-    <div id="form2" class="form-container" style="display: none;">
-        <div class="welcome-section">
-            <h1>Esi sveicināts KLUS</h1>
-            <p>Tavas laboratorijas uzskaites sistēma</p>
-        </div>
-        <div class="action-section">
-            <h2>Pieslēgties</h2>
-            <p>Ķīmijas laboratorijas uzskaites sistēmai</p>
-            <form>
-                <label for="username">Lietotājvārds:</label>
-                <input type="text" id="username" name="username"><br>
-                <label for="password">Parole:</label>
-                <input type="password" id="password" name="password"><br>
-                <button type="submit">Pieslēgties</button>
-            </form>
-            <p>Neesi vēl reģistrējies? <a href="#">Izveidot profilu</a></p>
-            <button onclick="showForm('form1')">Atpakaļ uz sākumu</button>
-        </div>
-    </div>
-
-    <div id="form3" class="form-container" style="display: none;">
-        <div class="welcome-section">
-            <h1>Esi sveicināts KLUS</h1>
-            <p>Tavas laboratorijas uzskaites sistēma</p>
-        </div>
-        <div class="action-section">
-            <h2>Publiskie dati</h2>
-            <p>Šeit var būt kāda informācija par publiskajiem datiem</p>
-            <button onclick="showForm('form1')">Atpakaļ uz sākumu</button>
-        </div>
-    </div>
-
-    <script>
-        function showForm(formId) {
-            document.getElementById('form1').style.display = 'none';
-            document.getElementById('form2').style.display = 'none';
-            document.getElementById('form3').style.display = 'none';
-            document.getElementById(formId).style.display = 'block';
-        }
-    </script>
+    <h1>Homework Manager</h1>
+    <a href="{{ url_for('add_homework') }}">Add Homework</a>
+    <ul>
+        {% for homework in homeworks %}
+            <li>
+                <strong>{{ homework.subject }}</strong>: {{ homework.description }} (Due: {{ homework.due_date }})
+                <a href="{{ url_for('delete_homework', homework_id=loop.index0) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
